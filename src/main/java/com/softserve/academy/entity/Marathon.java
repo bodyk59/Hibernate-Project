@@ -17,9 +17,9 @@ public class Marathon {
     @Column(name = "title")
     private String title;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "marathon_user",
-            joinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "marathon_id"))
     private List<Users> usersList;
 
     public BigInteger getId() {
