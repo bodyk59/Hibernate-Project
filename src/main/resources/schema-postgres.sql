@@ -1,3 +1,9 @@
+/* For allocating extra namespaces - optional */
+create schema if not exists ssita;
+
+/* For setting default search_path on database level - optional */
+alter database marathon set search_path to ssita;
+
 create TABLE marathon(
   id BIGINT PRIMARY KEY,
   title VARCHAR(255) NOT NULL
