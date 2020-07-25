@@ -3,7 +3,6 @@ package com.softserve.academy.entity;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,6 +12,7 @@ import java.util.Objects;
 @Table(name = "task")
 public class Task {
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private BigInteger id;
 
@@ -25,10 +25,14 @@ public class Task {
     @Column(name = "updated")
     private Date updated;
 
-    @OneToMany
-    @JoinTable(name = "progress",
-            joinColumns = @JoinColumn(name = "task_id"))
-    private List<Progress> progressList;
+    @OneToOne(optional = false, mappedBy = "task")
+    private Progress progress;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST
+    })
+    @JoinColumn(name = "sprint_id", nullable = false)
+    private Sprint sprint;
 
     public BigInteger getId() {
         return id;
@@ -62,12 +66,20 @@ public class Task {
         this.updated = updated;
     }
 
-    public List<Progress> getProgressList() {
-        return progressList;
+    public Progress getProgress() {
+        return progress;
     }
 
-    public void setProgressList(List<Progress> progressList) {
-        this.progressList = progressList;
+    public void setProgress(Progress progress) {
+        this.progress = progress;
+    }
+
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 
     @Override
@@ -79,12 +91,12 @@ public class Task {
                 Objects.equals(getCreated(), task.getCreated()) &&
                 Objects.equals(getTitle(), task.getTitle()) &&
                 Objects.equals(getUpdated(), task.getUpdated()) &&
-                Objects.equals(getProgressList(), task.getProgressList());
+                Objects.equals(getProgress(), task.getProgress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCreated(), getTitle(), getUpdated(), getProgressList());
+        return Objects.hash(getId(), getCreated(), getTitle(), getUpdated(), getProgress());
     }
 
     @Override
