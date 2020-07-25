@@ -2,7 +2,8 @@ package com.softserve.academy.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Bohdan Kurchak, Ruslan Pryimak
@@ -11,16 +12,22 @@ import java.util.List;
 @Table(name = "marathon")
 public class Marathon {
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private BigInteger id;
 
     @Column(name = "title")
     private String title;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "marathon")
+    private Set<Sprint> sprint;
+
     @ManyToMany
     @JoinTable(name = "marathon_user",
-            joinColumns = @JoinColumn(name = "marathon_id"))
-    private List<Users> usersList;
+            joinColumns = @JoinColumn(name = "marathon_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    private Set<Users> users;
 
     public BigInteger getId() {
         return id;
@@ -38,12 +45,20 @@ public class Marathon {
         this.title = title;
     }
 
-    public List<Users> getUsersList() {
-        return usersList;
+    public Set<Sprint> getSprint() {
+        return sprint;
     }
 
-    public void setUsersList(List<Users> usersList) {
-        this.usersList = usersList;
+    public void setSprint(Set<Sprint> sprint) {
+        this.sprint = sprint;
+    }
+
+    public Set<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Users> users) {
+        this.users = users;
     }
 
     @Override
@@ -53,15 +68,12 @@ public class Marathon {
 
         Marathon marathon = (Marathon) o;
 
-        if (getId() != null ? !getId().equals(marathon.getId()) : marathon.getId() != null) return false;
         return getTitle() != null ? getTitle().equals(marathon.getTitle()) : marathon.getTitle() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
-        return result;
+        return Objects.hash(id, title);
     }
 
     @Override
