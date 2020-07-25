@@ -40,6 +40,8 @@ public class Progress {
     @JoinColumn(name = "trainee_id", nullable = false)
     private Users user;
 
+    public Progress() {}
+
     public BigInteger getId() {
         return id;
     }

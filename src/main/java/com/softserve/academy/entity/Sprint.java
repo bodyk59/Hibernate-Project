@@ -35,6 +35,8 @@ public class Sprint {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
     private Set<Task> task;
 
+    public Sprint() {}
+
     public BigInteger getId() {
         return id;
     }

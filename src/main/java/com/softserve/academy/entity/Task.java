@@ -34,6 +34,8 @@ public class Task {
     @JoinColumn(name = "sprint_id", nullable = false)
     private Sprint sprint;
 
+    public Task() {}
+
     public BigInteger getId() {
         return id;
     }

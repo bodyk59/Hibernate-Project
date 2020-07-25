@@ -29,6 +29,8 @@ public class Marathon {
     )
     private Set<Users> users;
 
+    public Marathon() {}
+
     public BigInteger getId() {
         return id;
     }

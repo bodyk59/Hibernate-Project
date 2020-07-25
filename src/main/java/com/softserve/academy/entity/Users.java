@@ -36,6 +36,8 @@ public class Users {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Progress> progresses;
 
+    public Users() {}
+
     public BigInteger getId() {
         return id;
     }
