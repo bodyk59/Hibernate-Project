@@ -1,50 +1,43 @@
 package com.softserve.academy.repository;
 
-import com.softserve.academy.entity.CustomEntity;
-import com.softserve.academy.utils.MarathonSessionFactory;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 /**
  * @author Bohdan Kurchak, Ruslan Pryimak
  */
 @Repository
-public class MarathonRepository implements CrudRepository<CustomEntity, BigInteger> {
+public class MarathonRepository implements CrudRepository {
 
     @Override
-    public <S extends CustomEntity> S save(S s) {
-        MarathonSessionFactory.getSessionFactory().openSession().saveOrUpdate(s);
-        return s;
-    }
-
-    @Override
-    public <S extends CustomEntity> Iterable<S> saveAll(Iterable<S> iterable) {
+    public Object save(Object o) {
         return null;
     }
 
     @Override
-    public Optional<CustomEntity> findById(BigInteger bigInteger) {
-        return Optional.of(MarathonSessionFactory
-                .getSessionFactory()
-                .openSession()
-                .get(CustomEntity.class, bigInteger));
+    public Iterable saveAll(Iterable iterable) {
+        return null;
     }
 
     @Override
-    public boolean existsById(BigInteger bigInteger) {
+    public Optional findById(Object o) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Object o) {
         return false;
     }
 
     @Override
-    public Iterable<CustomEntity> findAll() {
+    public Iterable findAll() {
         return null;
     }
 
     @Override
-    public Iterable<CustomEntity> findAllById(Iterable<BigInteger> iterable) {
+    public Iterable findAllById(Iterable iterable) {
         return null;
     }
 
@@ -54,19 +47,17 @@ public class MarathonRepository implements CrudRepository<CustomEntity, BigInteg
     }
 
     @Override
-    public void deleteById(BigInteger bigInteger) {
+    public void deleteById(Object o) {
 
     }
 
     @Override
-    public void delete(CustomEntity customEntity) {
-        MarathonSessionFactory.getSessionFactory()
-                .openSession()
-                .delete(customEntity);
+    public void delete(Object o) {
+
     }
 
     @Override
-    public void deleteAll(Iterable<? extends CustomEntity> iterable) {
+    public void deleteAll(Iterable iterable) {
 
     }
 
