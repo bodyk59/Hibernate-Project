@@ -10,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "marathon")
-public class Marathon {
+public class Marathon implements CustomEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
