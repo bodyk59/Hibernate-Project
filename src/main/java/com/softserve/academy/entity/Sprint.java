@@ -3,8 +3,8 @@ package com.softserve.academy.entity;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Bohdan Kurchak, Ruslan Pryimak
@@ -13,6 +13,7 @@ import java.util.Objects;
 @Table(name = "sprint")
 public class Sprint {
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private BigInteger id;
 
@@ -25,10 +26,14 @@ public class Sprint {
     @Column(name = "title")
     private String title;
 
-    @OneToMany
-    @JoinTable(name = "marathon",
-            joinColumns = @JoinColumn(name = "marathon_id"))
-    private List<Marathon> marathonList;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST
+    })
+    @JoinColumn(name = "marathon_id", nullable = false)
+    private Marathon marathon;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
+    private Set<Task> task;
 
     public BigInteger getId() {
         return id;
@@ -62,12 +67,20 @@ public class Sprint {
         this.title = title;
     }
 
-    public List<Marathon> getMarathonList() {
-        return marathonList;
+    public Marathon getMarathon() {
+        return marathon;
     }
 
-    public void setMarathonList(List<Marathon> marathonList) {
-        this.marathonList = marathonList;
+    public void setMarathon(Marathon marathon) {
+        this.marathon = marathon;
+    }
+
+    public Set<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(Set<Task> task) {
+        this.task = task;
     }
 
     @Override
@@ -79,12 +92,12 @@ public class Sprint {
                 Objects.equals(getFinish(), sprint.getFinish()) &&
                 Objects.equals(getStart_date(), sprint.getStart_date()) &&
                 Objects.equals(getTitle(), sprint.getTitle()) &&
-                Objects.equals(getMarathonList(), sprint.getMarathonList());
+                Objects.equals(getMarathon(), sprint.getMarathon());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFinish(), getStart_date(), getTitle(), getMarathonList());
+        return Objects.hash(getId(), getFinish(), getStart_date(), getTitle(), getMarathon());
     }
 
     @Override
