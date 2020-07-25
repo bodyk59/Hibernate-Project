@@ -2,7 +2,7 @@ package com.softserve.academy.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Bohdan Kurchak, Ruslan Pryimak
@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "users")
 public class Users {
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private BigInteger id;
 
@@ -29,10 +30,11 @@ public class Users {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany
-    @JoinTable(name = "marathon_user",
-            joinColumns = @JoinColumn(name = "user_id"))
-    private List<Marathon> marathonList;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private Set<Marathon> marathons;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Progress> progresses;
 
     public BigInteger getId() {
         return id;
@@ -82,12 +84,12 @@ public class Users {
         this.role = role;
     }
 
-    public List<Marathon> getMarathonList() {
-        return marathonList;
+    public Set<Marathon> getMarathons() {
+        return marathons;
     }
 
-    public void setMarathonList(List<Marathon> marathonList) {
-        this.marathonList = marathonList;
+    public void setMarathons(Set<Marathon> marathons) {
+        this.marathons = marathons;
     }
 
     @Override
@@ -97,27 +99,20 @@ public class Users {
 
         Users users = (Users) o;
 
-        if (getId() != null ? !getId().equals(users.getId()) : users.getId() != null) return false;
         if (getEmail() != null ? !getEmail().equals(users.getEmail()) : users.getEmail() != null) return false;
         if (getFirst_name() != null ? !getFirst_name().equals(users.getFirst_name()) : users.getFirst_name() != null)
             return false;
         if (getLast_name() != null ? !getLast_name().equals(users.getLast_name()) : users.getLast_name() != null)
             return false;
-        if (getPassword() != null ? !getPassword().equals(users.getPassword()) : users.getPassword() != null)
-            return false;
-        if (getRole() != null ? !getRole().equals(users.getRole()) : users.getRole() != null) return false;
-        return getMarathonList() != null ? getMarathonList().equals(users.getMarathonList()) : users.getMarathonList() == null;
+        return getRole() != null ? getRole().equals(users.getRole()) : users.getRole() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        int result = getEmail() != null ? getEmail().hashCode() : 0;
         result = 31 * result + (getFirst_name() != null ? getFirst_name().hashCode() : 0);
         result = 31 * result + (getLast_name() != null ? getLast_name().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
         result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
-        result = 31 * result + (getMarathonList() != null ? getMarathonList().hashCode() : 0);
         return result;
     }
 
