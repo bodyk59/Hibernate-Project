@@ -34,6 +34,10 @@ public class Task {
     @JoinColumn(name = "sprint_id", nullable = false)
     private Sprint sprint;
 
+    public enum TaskStatus {
+        PASS, FAIL, PENDING
+    }
+
     public Task() {}
 
     public BigInteger getId() {
