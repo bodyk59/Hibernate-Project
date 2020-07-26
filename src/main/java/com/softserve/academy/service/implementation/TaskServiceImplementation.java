@@ -1,5 +1,6 @@
 package com.softserve.academy.service.implementation;
 
+import com.softserve.academy.exception.EntityNotFoundException;
 import com.softserve.academy.model.Sprint;
 import com.softserve.academy.model.Task;
 import com.softserve.academy.repository.TaskRepository;
@@ -31,11 +32,12 @@ public class TaskServiceImplementation implements TaskService {
             if (Objects.nonNull(element) && !Objects.equals(element.getSprint(), sprint)) {
                 element.setSprint(sprint);
                 return taskRepository.save(element);
+            } else {
+                throw new EntityNotFoundException("Given Task not found or the Task already assign to sprint");
             }
-            //TODO: Throw exception, because task with given id not found or given task already asign to sprint
+        } else {
+            throw new EntityNotFoundException("Some elements are null");
         }
-        //TODO: Throw exception, because some elements are null
-        return task;
     }
 
     @Transactional

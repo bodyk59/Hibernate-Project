@@ -1,5 +1,6 @@
 package com.softserve.academy.service.implementation;
 
+import com.softserve.academy.exception.EntityNotFoundException;
 import com.softserve.academy.model.Marathon;
 import com.softserve.academy.model.Sprint;
 import com.softserve.academy.model.Task;
@@ -54,8 +55,9 @@ public class UserServiceImplementation implements UserService {
                 element.setRole(user.getRole());
                 element.setPassword(element.getPassword());
                 return userRepository.save(element);
+            } else {
+                throw new EntityNotFoundException("Given User doesn`t exist");
             }
-            //TODO: Throw exception, because user with given id doesn`t exist
         }
         return userRepository.save(user);
     }
@@ -70,7 +72,7 @@ public class UserServiceImplementation implements UserService {
                         .filter(users -> Objects.equals(users.getRole(), newRole.toString()))
                         .collect(Collectors.toList());
             } catch (IllegalArgumentException e) {
-                //TODO: Throw exception that given role doesn`t exist
+                throw new EntityNotFoundException("Given Role doesn`t exist");
             }
         }
         return new ArrayList<>();

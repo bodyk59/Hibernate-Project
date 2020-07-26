@@ -1,5 +1,6 @@
 package com.softserve.academy.service.implementation;
 
+import com.softserve.academy.exception.EntityNotFoundException;
 import com.softserve.academy.model.*;
 import com.softserve.academy.repository.ProgressRepository;
 import com.softserve.academy.service.ProgressService;
@@ -42,8 +43,7 @@ public class ProgressServiceImplementation implements ProgressService {
                 return progressRepository.save(element);
             }
         }
-        //TODO: change to custom Exception -> task or user with given id doesn`t exist
-        throw new IllegalArgumentException();
+        throw new EntityNotFoundException("Given Task or User doesn`t exist");
     }
 
     @Transactional
@@ -58,8 +58,9 @@ public class ProgressServiceImplementation implements ProgressService {
                 element.setUpdated(progress.getUpdated());
                 element.setUser(progress.getUser());
                 return progressRepository.save(element);
+            } else {
+                throw new EntityNotFoundException("Given Progress doesn`t exist");
             }
-            //TODO: Throw exception, the progress with given id doesn`t exist
         }
         return progressRepository.save(progress);
     }

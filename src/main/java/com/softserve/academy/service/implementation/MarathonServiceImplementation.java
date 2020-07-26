@@ -1,5 +1,6 @@
 package com.softserve.academy.service.implementation;
 
+import com.softserve.academy.exception.EntityNotFoundException;
 import com.softserve.academy.model.Marathon;
 import com.softserve.academy.repository.MarathonRepository;
 import com.softserve.academy.service.MarathonService;
@@ -46,10 +47,11 @@ public class MarathonServiceImplementation implements MarathonService {
             if (Objects.nonNull(element)) {
                 element.setTitle(marathon.getTitle());
                 return marathonRepository.save(element);
+            } else {
+                throw new EntityNotFoundException("Given Marathon doesn`t exist");
             }
-            //TODO: Throw exception, because the id already exist, but the marathon doesn`t
         }
-       return marathonRepository.save(marathon);
+        return marathonRepository.save(marathon);
     }
 
     @Transactional
@@ -57,8 +59,8 @@ public class MarathonServiceImplementation implements MarathonService {
     public void deleteMarathonById(Long id) {
         if (Objects.nonNull(marathonRepository.findById(BigInteger.valueOf(id)))) {
             marathonRepository.deleteById(BigInteger.valueOf(id));
-            return;
+        } else {
+            throw new EntityNotFoundException("No marathon found for given id");
         }
-        //TODO: Throw exception, because there isn`t needed marathon
     }
 }
