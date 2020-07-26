@@ -1,6 +1,6 @@
 package com.softserve.academy.utils;
 
-import com.softserve.academy.entity.*;
+import com.softserve.academy.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

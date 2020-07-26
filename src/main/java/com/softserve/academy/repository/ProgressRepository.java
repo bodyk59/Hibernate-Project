@@ -1,6 +1,6 @@
 package com.softserve.academy.repository;
 
-import com.softserve.academy.entity.Progress;
+import com.softserve.academy.model.Progress;
 import com.softserve.academy.utils.MarathonSessionFactory;
 import org.hibernate.Session;
 import org.springframework.data.repository.CrudRepository;

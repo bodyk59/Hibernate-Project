@@ -1,6 +1,6 @@
 package com.softserve.academy.service.implementation;
 
-import com.softserve.academy.entity.Marathon;
+import com.softserve.academy.model.Marathon;
 import com.softserve.academy.repository.MarathonRepository;
 import com.softserve.academy.service.MarathonService;
 import org.springframework.beans.factory.annotation.Autowired;

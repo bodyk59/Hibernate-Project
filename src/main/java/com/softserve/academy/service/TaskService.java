@@ -1,7 +1,7 @@
 package com.softserve.academy.service;
 
-import com.softserve.academy.entity.Sprint;
-import com.softserve.academy.entity.Task;
+import com.softserve.academy.model.Sprint;
+import com.softserve.academy.model.Task;
 import org.springframework.stereotype.Component;
 
 /**

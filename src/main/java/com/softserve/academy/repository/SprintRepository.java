@@ -3,7 +3,7 @@ package com.softserve.academy.repository;
 import com.softserve.academy.utils.MarathonSessionFactory;
 import org.hibernate.Session;
 import org.springframework.data.repository.CrudRepository;
-import com.softserve.academy.entity.Sprint;
+import com.softserve.academy.model.Sprint;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;

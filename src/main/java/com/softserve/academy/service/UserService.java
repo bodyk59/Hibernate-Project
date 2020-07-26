@@ -1,8 +1,8 @@
 package com.softserve.academy.service;
 
-import com.softserve.academy.entity.Marathon;
-import com.softserve.academy.entity.Task;
-import com.softserve.academy.entity.Users;
+import com.softserve.academy.model.Marathon;
+import com.softserve.academy.model.Task;
+import com.softserve.academy.model.Users;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.softserve.academy.service;
 
-import com.softserve.academy.entity.Marathon;
-import com.softserve.academy.entity.Sprint;
+import com.softserve.academy.model.Marathon;
+import com.softserve.academy.model.Sprint;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

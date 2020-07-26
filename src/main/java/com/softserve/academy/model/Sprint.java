@@ -1,4 +1,4 @@
-package com.softserve.academy.entity;
+package com.softserve.academy.model;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "sprint")
 public class Sprint {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private BigInteger id;
 
@@ -39,10 +39,6 @@ public class Sprint {
 
     public BigInteger getId() {
         return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
     }
 
     public Date getFinish() {
