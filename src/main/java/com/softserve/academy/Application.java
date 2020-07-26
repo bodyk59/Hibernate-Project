@@ -2,10 +2,12 @@ package com.softserve.academy;
 
 import com.softserve.academy.service.*;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Bohdan Kurchak, Ruslan Pryimak
  */
+@SpringBootApplication
 public class Application {
     private final MarathonService marathonService;
     private final TaskService taskService;
